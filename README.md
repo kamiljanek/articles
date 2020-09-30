@@ -1,4 +1,4 @@
-## Artykuły p-programowanie.pl
+## Artykuły ze strony p-programowanie.pl
 
 To repozytorium zawiera wszystkie artykuły z bloga https://www.p-programowanie.pl.
 

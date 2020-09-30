@@ -78,7 +78,7 @@ Oto lista moich argumentów przeciw używaniu Gita z poziomu programu graficzneg
 - cokolwiek zepsuje się w Twoim repo: wszystkie odpowiedzi na stackoverflow.com to sekwencje komend, których należy użyć, aby naprawić problem. Dobrze je rozumieć, aby nie wywalić repo w kosmos..
 - pewnych rzeczy nie da się osiągnąć z interfejsu graficznego, jeszcze niedawno była to praca na repo opartym o *submodule* (nie wiem jak teraz)
 
-Zauważyłem też, że ludzie obsługujący Gita z programu graficznego strasznie syfią repo. Nie za bardzo znają różnice pomiędzy *merge*, *rebase*, *squash*.
+Zauważyłem też, że ludzie obsługujący GITa z klienta graficznego strasznie śmiecą repo. Nie za bardzo znają różnice pomiędzy *merge*, *rebase*, *squash*.
 
 ## Gdzie się uczyć i jak zacząć
 

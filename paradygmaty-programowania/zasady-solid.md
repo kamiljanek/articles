@@ -405,24 +405,34 @@ Interfejs natomiast jest bezstanowy, nie powinien definiować modelu biznesowego
 
 Kod jest błędny, ponieważ nie każda metoda definiowana przez interfejs jest wykorzystana w klasach pochodnych. Zamiast głównego interfejsu *IRaportable* można utworzyć wiele mniejszych interfejsów. Przykładowy kod:
 
-	interface IRepository<T>
+	interface IPrintablePdf
 	{
-	    IEnumerable<T> GetAll();
-	    T GetById(int id);
+	    void PrintPdf();
 	}
 	
-	class BookRepository: IRepository<Book>
+	interface IPrintableExcel
 	{
-	    public IEnumerable<Book> GetAll() { ... }
-	    public Book GetById(int id) { ... }
+	    void PrintExcel();
 	}
 	
-	class BookController {
-	    private IRepository<Book> bookRepository;
-	    
-	    public BookController(IRepository<Book> bookRepository) 
+	class SalaryRaport : IPrintablePdf, IPrintableExcel
+	{
+	    public void PrintPdf()
 	    {
-	        this.bookRepository = bookRepository;
+	        // print pdf
+	    }
+	    
+	    public void PrintExcel()
+	    {
+	        // print excel
+	    }
+	}
+
+	class HighSchoolExam : IPrintablePdf
+	{
+	    public void PrintPdf()
+	    {
+	        // print Pdf here
 	    }
 	}
 

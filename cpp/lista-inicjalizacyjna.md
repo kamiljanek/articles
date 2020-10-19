@@ -26,7 +26,7 @@ Zwróć uwagę, że w przypadku użycia **listy inicjalizacyjnej** ciało konstr
 
 ## Składowe stałe const
 
-Tak jak było napisane w poprzednim akapicie, w konstruktorze nie można przypisać zmiennej *cons* żadnej wartości, ponieważ podczas wywołania konstruktora **obiekt już istnieje**. Poniższy przykład **nie skompiluje się**:
+Tak jak było napisane w poprzednim akapicie, w konstruktorze nie można przypisać zmiennej *const* żadnej wartości, ponieważ podczas wywołania konstruktora **obiekt już istnieje**. Poniższy przykład **nie skompiluje się**:
 
 	class Osoba {
 	public:

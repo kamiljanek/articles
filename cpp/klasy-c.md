@@ -97,7 +97,7 @@ Tworząc obiekt statyczny, robimy to tak jak deklaracja zwykłej zmiennej:
 	    osoba Karol;
 	    
 	    Karol.wiek = 21;
-	    cout << Karol.wiek; << endl
+	    cout << Karol.wiek << endl;
 	    
 	    system ("Pause");
 	    return 0;

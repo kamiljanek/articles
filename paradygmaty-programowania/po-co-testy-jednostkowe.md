@@ -2,7 +2,7 @@
 title: Po co testy jednostkowe?
 category: paradygmaty-programowania
 thumbnail: testowanie-oprogramowania.png
-published: 2017-04-22T00:00:00Z
+published: 2021-04-21T00:00:00Z
 ---
 Wielu programistów ma bardzo **różne podejście do testów** jednostkowych. Niektórzy piszą, bo muszą. Inni nie lubią lub nie rozumieją, trzymają się z daleka. **Co tak naprawdę dają nam testy jednostkowe** i czy warto zaprzątać sobie nimi głowę?
 
@@ -10,76 +10,114 @@ Wielu programistów ma bardzo **różne podejście do testów** jednostkowych. N
 
 ## Czym są testy jednostkowe?
 
-Testy jednostkowe to metoda testowania wytwarzanego oprogramowania, polegająca na pisaniu metod testujących określone, małe fragmenty naszego programu (jednostki). Jednostkami mogą być np. metody lub klasy. Kończąc studia informatyczne lub zaczynając przygodę z programowaniem ciężko dostrzec **zalety pisania testów jednostkowych**. Wszystko wydaje się niby proste, jednak nasuwa się pytanie: **po co testować coś, co sami piszemy?** Brzmi to paradoksalnie jak np. sprawdzanie poprawności zadania matematycznego rozwiązanego przez nas samych.
+Testy jednostkowe to metoda testowania wytwarzanego oprogramowania, polegająca na pisaniu metod testujących określone, małe fragmenty naszego programu (jednostki). Jednostkami mogą być np. metody lub klasy.
+{: .alert-info} 
 
-Dodatkowym zniechęceniem do pisania testów mogą okazać się cechy testów jednostkowych takie jak:
+Zaczynając przygodę z programowaniem ciężko dostrzec **zalety pisania testów jednostkowych**. Wszystko wydaje się niby proste, jednak nasuwa się pytanie: **po co testować coś, co sami piszemy?**
 
-- żadnego oprogramowania **nie jesteśmy przetestować całkowicie**
-- nigdy nie mamy pewności znalezienia wszystkich błędów, nawet gdyby pokrycie testami wynosiło 100% (co jest nierealne)
-- testy wydłużają **czas wytwarzania oprogramowania praktycznie nawet o połowę**
+W tym artykule przytoczę kilka najważniejszych faktów i zalet pisania testów jednostkowych.
 
-Po tych wszystkich rozważaniach nasuwa się pytanie: po co?
+## Testy jednostkowe są dla programistów
 
-## Kiedy warto testować
+Jako programista **powinieneś uwielbiać testy jednostkowe** - one są stworzone dla Ciebie. Pilnują Twojego kodu! Dzięki testom jednostkowym przestaniesz popełniać błache błędy, ponieważ istnieje dodatkowa warstwa kontroli. Ta warstwa będzie grać na Twoją korzyść im większy będzie projekt.
 
-Przede wszystkim należy uzmysłowić sobie kiedy warto pisać testy jednostkowe do aplikacji. Jeżeli piszemy prosty programik i mamy pewność, że **będziemy rozwijać go samemu**, to testy raczej nie będą potrzebne. Nie będą potrzebne także w przypadku programów, które chcemy napisać  
-"raz i zostawić", nie nastawiamy się na ich systematyczny rozwój.
+Jeżeli programista nie chce pisać testów jednostkowych **to prawdopodobnie po prostu nie będzie**. Nikt go do tego nie zmusi, a jeżeli zmusi, to testy będą tak słabej jakości, że będą niezbyt użyteczne.
 
-### Duże projekty i wielu programistów
+Dlaczego testy jednostkowe są dla programistów? Ponieważ wyłapują one błędy zlokalizowane "u źródła", w najniższej możliwej warstwie. Im więcej testów jednostkowych tym mniej błędów odkrytych na produkcji i tłumaczenia się klientom.
 
-Całkiem inaczej w dużych projektach pisanych przez kilka osób. Tworzenie dużego projektu niekiedy może przypominać spagetti. Każdy programista dopisuje do projektu swoje własne metody i klasy, rozwija istniejące funkcje i dodaje nowe. W takim przypadku **brak testów może w przyszłości nieść wiele negatywnych skutków**.
+## Test jednostkowe wymagają poprawnego pisania kodu
 
-Każdy programista ma swój styl kodowania, który dodatkowo zmienia się pod wpływem czasu i doświadczenia. Jeden kod napisany przed dwóch różnych programistów, działający tak samo, **będzie prawdopodobnie wyglądał inaczej**. Przykładem może być proste przekazywanie argumentów do funkcji.
+Jeżeli jesteś programistą, który nie lubi pisać testów jednostkowych to przepraszam, ale **prawdopodobnie tworzysz kod słabej jakości**. Prawdziwą zaletą testów jednostkowych jest to, że **nie tolerują one żadnej prowizorki**.
 
-### Odmienne style pisania kodu
+Funkcje, które testujemy muszą być małe. Muszą odpowiadać za pojedyncze czynności, mieć jak najmniej parametrów i najlepiej robić jak najmniej rzeczy - czyli wszystko to, o czym mówi "czysty kod". Jeżeli masz skłonności do tworzenia super klas i wrzucasz wszystko do jednego worka, to nijak nie uda Ci się napisać dobrych testów.
 
-Wyobraź sobie sytuację, w której musisz napisać funkcję wypisującą na ekran informacje o osobie. Jeden programista zadeklaruje ją następująco: `void PrintPersonInfo(Person person)` a inny tak: `void PrintPersonInfo(string name, string lastname, int age)`. Niby to samo, a jednak nie.
+Dla mnie nakaz pisania testów jednostkowym w projekcie jest dobry własnie z tego powodu. Programiści zaczynają tworzyć solidny kod. Zaczynają używać wzorców projektowych, odpowiednio wydzielają funkcje, oddzielają logikę aplikacji od logiki biznesowej.
 
-Będąc programistą dużego projektu, **musisz wiedzieć, że spotkasz się z sytuacjami takimi jak powyższa**. Wynika to z różnego poziomu doświadczenia współpracowników a także choćby z ich języków bazowych z jakich się wywodzą.
+## Testy jednostkowe we wzorcu AAA
 
-Kiedy ktoś użyje typów prostych **raczej nic się nie wysypie pod wpływem czasu**. Jeżeli ktoś użyje typu złożonego takiego jak klasa `Person`, to nikt tak naprawdę nie wie, jak ta klasa będzie wyglądać za 4 miesiące lub za rok. Jeżeli na dodatek będzie ona wykorzystana jako model warstwy biznesowej można być pewnym bugów.
+Zatrzymajmy się chwilę przy kodzie dobrej jakości. Moim zdaniem najlepsza metodą na pisanie testów jednostkowych jest trzymanie się wzorca AAA (ang. *Arrange, Act and Assert*). Oznacza to po prostu: ustaw, uruchom, sprawdź! Jeżeli jesteś w stanie pisać testy używając AAA, to Twój kod jest nieskazitelnie idealny i chciałbym z Tobą pracować.
 
-W takich momentach niezbędne są testy. Współpracując z wieloma osobami **nie jesteśmy w stanie wpływać na jakość ich kodu**. Testy jednostkowe gwarantują nam to, że nie musimy. W minimalnym stopniu **chronią nas one przed zmianami, które zajdą w projekcie za wiele miesięcy lub lat**. Mimo, że my o czymś zapomnimy a inny programista nie będzie wiedział, że element systemu, który reużywa jest używany gdzieś indziej, to testy będą pamiętać o tym za nas.
+Oto przykład takiego testu:
 
-## Jakie ma być pokrycie kodu testami?
+    void ShouldGenerateCorrectUserLogin() {
+        // arrange
+        const name = "John";
+        const surename = "Green";
+        const company = "Umbrella";
+        
+        // act
+        const result = service.generateUserLogin(name, surename);
+        
+        // assert
+        expect(result).toEqual("john.green@umbrella.com");
+    }
 
-Pisanie testów wydłuża proces tworzenia oprogramowania. M.in. z tego powodu **nie jest realne aby projekt był w 100% pokryty testami**. Jest to niepotrzebne, wręcz może prowadzić do błędów. To ile testów napisać zależy od czasu jakim dysponujemy i przede wszystkim od przeczucia. Warto testować fragmenty kodu, które są **bardzo newralgiczne i używane w wielu miejscach**.
+Jak widzisz w powyższym przykładzie, testujemy trywialną funkcję. Sprawdzamy czy złącza stringa w odpowiedni sposób, czy wszystkie litery są małe - niby nic wielkiego.
 
-Podobno dobre pokrycie testami to 40%, jednak czy ta informacje coś mówi? Można mieć duże pokrycie testami a żadnych korzyści, lub małe pokrycie testami i wielkie korzyści. Zależy to od jakości testów i elementów, które testujemy.
+Bardzo zachęcam Cię do spróbowania pisania testów w ten sposób. Zwróć szczególną uwagę na trzy literki AAA: deklarujesz zmienne, uruchamiasz, sprawdzasz rezultat.
 
-## Testowanie regresyjne
+Jeżeli testując wyjdzie Ci coś takiego, to wiedz, że dzieje się coś złego:
 
-W jednym z projektów (ERP) jaki współtworzyłem nie pisaliśmy testów jednostkowych. Cały projekt w miarę działał **dopóki nie pojawiła się magiczna funkcja kolejki zadań**. Kolejka była fragmentem systemu działającym dosłownie wszędzie. Każda nowa funkcja, która się pojawiała, w jakiejś części musiała zintegrować się z kolejką.
+    void ShouldDoSomething() {
+        // arrange
+        const something1 = "John";
+        const orderStrategy = strategies.get(something1);
+        const something2 = "Green";
 
-Pomijając fakt, że kolejka była źle zaprojektowana przez programistę, który już nie pracował, **nie dało się jej nawet dotknąć**. Jedna zmiana wysypywała stare funkcje systemu przetestowane wiele miesięcy wcześniej. Nie dało się jej dotknąć w znaczeniu jak najbardziej dosłownym. Dopisanie nowego parametru lub dodanie nowego typu zadania, psuło funkcje systemu zaimplementowane 8 miesięcy wcześniej.
+        // act
+        const order = service.foo(something2, orderStrategy);
 
-Pomyślisz "no dobrze, nie ma testów jednostkowych więc trzeba testować ręcznie?" - otóż nie. Nie da się przetestować wszystkich scenariuszy systemu tworzonego latami przez kilku/kilkunastu programistów. W tak dużym i złożonym systemie dopisanie jednej funkcji "do kolejki" wymagałoby 2 dni testowania aplikacji. Drobna poprawa funkcji? **Kolejne dwa dni testowania**. Dopisujemy nową funkcję? Kolejne kilka dni testowania. Tak wyglądający proces testowania oprogramowania jest kosmiczny.
+        // assert
+        expect(order).toBeDefined();
 
-Lekarstwem byłyby tutaj testy jednostkowe. Ich pokrycie mogłoby wynosić chociaż 8% projektu. Ważne, aby pokryta była bardzo wrażliwa funkcja systemu, z której korzysta wiele elementów systemu. Zmieniając lub dopisując coś po wielu miesiącach wystarczyłoby odpalić testy, aby przekonać się czy nie zepsuliśmy kogoś pracy.
+        // act
+        const result2 = service.buz(order.status);
+        
+        // assert
+        expect(result2).toEqual(true);
+    }
 
-## Testy wymagają pisania przemyślanego kodu
+Wiem, że wzorzec AAA wydaje się prosty, jednak gdy zaczniesz pisać pierwsze testy, napotkasz duże trudności. Nie zniechęcaj się! Z czasem jakość Twojego kodu mocno wzrośnie.
 
-Kolejną zaletą testów jednostkowych jest pisanie mądrego kodu. Na studiach lub świeżo po studiach nic na ten temat nie wiadomo, jednak po kilku miesiącach pracy zawodowej zaczyna się poznawać wiedzę tajemną. Otóż, **nie wszystkie fragmenty kodu da się pokryć testami**. Aby dało się napisać test jednostkowy, **kod programu musi być testowalny**.
+## Nie ma refaktoryzacji bez testów
 
-Przykładem platformy programistycznej, która umożliwia pisanie nietestowalnego kodu jest ASP.NET MVC. Nie wiem jak będzie wyglądać sytuacja w .NET Core, jednak MVC w żaden sposób nie wymusza na programiście eleganckich rozwiązań. Jeżeli nie pomyślisz (lub ktoś w zespole nie pomyśli) i **nie wprowadzisz do projektu wzorca repozytorium** z mechanizmem _Inversion of Control_ (czyli odwrócenia zależności np. _dependency injection_) to wasz kod będzie absolutnie nietestowalny. Jeżeli ktoś **zacznie używać klas statycznych**, pisać tzw. klasy helperki czyli niby do wszystkiego, niby do niczego, to wasz kod będzie absolutnie nietestowalny.
+Jako programista lub jako osoba związana z IT musisz zrozumieć jedną ważną zasadę: **nie ma refaktoryzacji bez testów**. Duży fragment newralgicznego kodu, który nie został pokryty testami, naddaje się do zalania betonem aby pozostał w swojej niezmiennej postaci już na zawsze.
 
-Każdy obiekt, z którego chcesz skorzystać, powinien zostać w jakiś sposób wstrzyknięty. Powinien spełniać jakiś interfejs i być od niego zależny (zasady SOLID). Dzięki interfejsom można napisać test i zamockować np. obiekt bazy danych, lub warstwę repozytorium.
+Nie ma możliwości refaktoryzowania wrażliwych fragmentów systemu nie posiadając żadnej warstwy, która zweryfikuje nasze zmiany. W takim wypadku najpierw trzeba pokryć kod testami, a dopiero później przeprowadzać refaktoryzację. Oczywiście, jeżeli w kodzie nie było ani jednego testu, to **prawdopodobnie kod jest całkowicie nietestowalny**. Zataczamy wtedy błędne koło.
 
-Miłym zaskoczeniem było dla mnie tutaj zetknięcie się z platformą Angular, w której czy chcesz, czy nie chcesz, **musisz korzystać z mechanizmu wstrzykiwania zależności**. Idąc dalej, praktycznie zawsze jesteś w stanie przetestować swoje serwisy i kontrolery, co np. nie uda się w ASP.NET MVC.
+Oto programistyczny deadlock, sytuacja bez wyjścia, której nigdy Ci nie życzę:
 
-Jeżeli w projekcie macie testy, to programista pisząc bubla szybko zorientuje się, że tak to działać nie może, ponieważ nie da się tego przetestować. Wymusi to na nim konieczność refaktoryzacji lub ponownego zaimplementowania funkcji.
+{% include parts/postPicture.html page=page img="testy-jednostkowe" %}
+
+Oczywiście, ktoś może uprzeć się na refaktoryzację - czy testy są czy nie. Jednak wtedy jest to jazda bez trzymania i efekty, których bliżej nie da się przewidzieć. Garść błędów zostanie wychwycona podczas developmentu, trochę na środowisku testowym, a pewna ilość na produkcji. W zalezności od systemu, który rozwijamy, takie rozwiązanie może być nie do zaakceptowania.
+
+## Testowanie front-endu
+
+Programiści języków silnie typowanych jak C++, Java, C# mogą spać spokojnie, ponieważ kompilator niezwykle skutecznie wyłapuje wszelkie błędy już na etapie kompilacji. Programiści JavaScript mają zadanie bardzo utrudnione. W JS wszystko jest dynamiczne i **jest to język, który niezwykle mocno potrzebuje testów jednostkowych**.
+
+Sytuację na rynku bardzo odmienił TypeScript, jednak nie wszędzie jest to cudowane rozwiązanie. Po pierwsze nie wszytkie projekty używają TypeScripta, a po drugie nie wszędzie da się wszystko pokryć typami (naprawdę!).
+
+Pracowałem niedawno w projekcie, gdzie front-end mapował żądanie API różnie w zależności od typu bazy. Jeden serwis zapisywał dane w bazie relacyjnej, drugi w bazie obiektowej. Sam obiekt był bardzo skomplikowany, jego atrybuty były różne i miały bardzo dynamiczne nazwy. Dla mnie były one logiczne (powiązanie z miesiącami i latami) jednak używając TypeScripta nie dało się pokryć tego modelu typami. Ratunkiem były oczywiście testy jednostkowe, które sprawdzały czy mapowanie odbywa sę w poprawny sposób.
+
+Osobiście uważam, że w czasach mocno rozwiniętego front-endu testy bardziej potrzebne są właśnie na froncie. Testy jednostkowe warto mieć wszędzie, jednak front-end bez testów jest o wiele trudniejszy do ogarnięcia.
+
+## Duże projekty i wielu programistów
+
+Kto kiedyś dołączył do dużego i starego projektu, ten umie docenić testy jednostkowe. Duży projekt pisany latami niekiedy może przypominać spagetti. Każdy programista dopisuje do projektu swoje własne metody i klasy, rozwija istniejące funkcje i dodaje nowe. W takim przypadku **brak testów może w przyszłości nieść wiele negatywnych skutków**.
+
+Pisanie kodu w dużej mierze polega na używaniu istniejących funkcji. Nierzadko stare funkcje i mechanizmy trzeba dostosować do nowych wymagań. Jako nowi programiści w dużym projekcie nigdy nie mamy pewności co można zmienić, a co nie. W takich przypadkach testy jednostkowe bardzo często ratują nas przed problemami.
 
 ## Szkoda czasu na testy? Oj nie..
 
-Jest to najpiękniejszy argument za pisaniem testów jednostkowych, z którym spotkałem się na szkoleniu z TDD, oraz odczułem jego skutki na własnej skórze. Możesz myśleć, że **szkoda Ci czasu na pisanie testów**, jednak cały ten **czas zwróci się z nawiązką**.
+Możesz pomyśleć, że **szkoda Ci czasu na pisanie testów**, jednak cały ten **czas zwróci się z nawiązką**. Zadanie, które możesz napisać w 5h z testami, napiszesz bez testów w 3h. Pozornie zaoszczędziłeś 2h pracy, jednak napisałeś nietestowalnego bubla. 
 
-Zadanie, które możesz napisać w 5h z testami napiszesz bez testów w 3h. Pozornie zaoszczędziłeś 2h pracy, jednak napisałeś nietestowanego/nietestowalnego bubla. Teraz każdy inny programista, który będzie musiał w jakiś sposób skorzystać z Twoich metod, klas, modułów, **będzie musiał przeprowadzać testy ręczne**. Będzie musiał linijka po linijce starać zrozumieć się, dlaczego w 97 linijce jest jakaś dziwna instrukcja warunkowa, sprawdzająca czy zmienna _priceDiff_ jest równa zero, i dlaczego jak jest równa zero to wyskakujesz z obiektu pętli. Jeżeli po jakimś czasie da radę się domyślić - pół biedy. Jeżeli nie da rady się domyślić a projekt skompiluje się bez błędów, to ktoś i tak zmarnuje czas szukając później błędów w działaniu produkcji.
+Teraz każdy inny programista, który będzie musiał w jakiś sposób skorzystać z Twoich metod, klas, modułów, **będzie musiał przeprowadzać testy ręczne**. Będzie musiał linijka po linijce starać się zrozumieć, dlaczego w 97 linijce jest jakaś dziwna instrukcja warunkowa, sprawdzająca czy zmienna _priceDiff_ jest równa zero, i dlaczego jak jest równa zero to wyskakujesz z obiektu pętli. Jeżeli po jakimś czasie da radę się domyślić - pół biedy. Jeżeli nie da rady się domyślić a projekt skompiluje się bez błędów, to ktoś i tak zmarnuje czas szukając później błędów w działaniu produkcji.
 
-## Brak testów to brak możliwości refaktoryzacji
+## Jakie ma być pokrycie kodu testami?
 
-Niezależnie od poziomu naszej naszej wiedzy oraz od naszego doświadczenia, każdy każdy programista ma świadomość **konieczności systematycznej refaktoryzacji pisanego kodu**. Refaktoryzacja i optymalizacja są tematami tak obszernymi, że należałoby o nich napisać osobny artykuł.
+Pisanie testów wydłuża proces tworzenia oprogramowania. M.in. z tego powodu **nierealne jest aby projekt był mocno pokryty testami**. Jest to niepotrzebne, wręcz może prowadzić do błędów. To ile testów napisać zależy od czasu jakim dysponujemy i przede wszystkim od przeczucia. Warto testować fragmenty kodu, które są **bardzo newralgiczne i używane w wielu miejscach**.
 
-Warto jednak brać pod uwagę, że refaktoryzacja w dużym projekcie, który nie ma testów, jest po prostu całkowicie niemożliwa. Bez testów programista może sobie pozwolić najwyżej na pozmienianie nazw zmiennych, ponieważ jakiekolwiek próby rozbicia klas na osobne podklasy prawdopodobnie zakończą się powstaniem błędów.
+Dobre pokrycie testami to 40%, jednak czy ta informacje coś mówi? Można mieć duże pokrycie testami a żadnych korzyści, lub małe pokrycie testami i wielkie korzyści. Zależy to od jakości testów i elementów, które testujemy.
 
 ## Podsumowanie
 
@@ -87,6 +125,4 @@ W każdym z wypadków wiele czasu da się oszczędzić **świadomie pisząc test
 
 **Czy pisanie testów wydłuża proces pisania oprogramowania?** - zdecydowanie tak, dlatego testy trzeba pisać mądrze, pokrywać testami tylko wrażliwe elementy systemu.
 
-**Po co testować coś co sami napisaliśmy?** Nie piszemy testu, aby przetestować własny kod. Testy piszemy na zapas, to jak inwestycja na przyszłość. Test nie ma na celu wychwycenia naszych błędów, tylko ewentualne błędy podczas przyszłej refaktoryzacji (szczególnie jeżeli wykona ją ktoś inny niż my). Jeżeli tworzymy jakąś funkcję np. kalkulator walut, zakładamy że jesteśmy jedyną osobą, która ma wiedzieć jak ma ten kalkulator działać. Inni nie wiedzą, dlaczego trzeba pokryć go testami.
-
-**Pisanie testów zawsze zaprocentuje w przyszłości**, chyba że piszemy testy "sztuka dla sztuki", pokrywamy testami niepotrzebne elementy.
+**Po co testować coś co sami napisaliśmy?** Nie piszemy testu, aby przetestować własny kod. Testy piszemy na zapas, to jak inwestycja na przyszłość. Test nie ma na celu wychwycenia naszych błędów, tylko ewentualne błędy podczas przyszłej refaktoryzacji (szczególnie jeżeli wykona ją ktoś inny niż my). Jeżeli tworzymy jakąś funkcję np. kalkulator walut, zakładamy że jesteśmy jedyną osobą, która ma wiedzieć jak ma ten kalkulator działać. Inni nie wiedzą jak to zrobić.

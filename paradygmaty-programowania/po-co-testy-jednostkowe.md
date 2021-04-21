@@ -2,7 +2,7 @@
 title: Po co testy jednostkowe?
 category: paradygmaty-programowania
 thumbnail: testowanie-oprogramowania.png
-published: 2021-04-21T00:00:00Z
+published: 2021-02-16T00:00:00Z
 ---
 Wielu programistów ma bardzo **różne podejście do testów** jednostkowych. Niektórzy piszą, bo muszą. Inni nie lubią lub nie rozumieją, trzymają się z daleka. **Co tak naprawdę dają nam testy jednostkowe** i czy warto zaprzątać sobie nimi głowę?
 

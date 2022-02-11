@@ -90,10 +90,10 @@ Jaki jest problem? **Typów referencyjnych** nie można kopiować zwykłym opera
 	Console.WriteLine(wiek1); // wyswietli 20
 	Console.WriteLine(wiek2); // wyswietli 20
 	
-	wiek2 = 50;
+	wiek1 = 50;	//wydaje mi się że wiek1 bedzie tu lepszym przykładem
 	
-	Console.WriteLine(wiek1); // wyswietli 20
-	Console.WriteLine(wiek2); // wyswietli 50
+	Console.WriteLine(wiek1); // wyswietli 20	//automatycznie tu powinno być 50
+	Console.WriteLine(wiek2); // wyswietli 50	//automatycznie tu powinno być 20
 
 W tym kodzie chyba nic nas nie dziwi. W 2 linijce następuje skopiowane wartości zmiennej *wiek1* do zmiennej *wiek2*. Obie zmienne ciągle znajdują się w osobnych miejscach w pamięci, więc gdy w linijce 7 zmieniamy wartość zmiennej *wiek2* to zmienna *wiek1* się nie zmienia.
 
@@ -114,13 +114,13 @@ Teraz ten sam przykład, z **wykorzystaniem typów referencyjnych**:
 	        Osoba osoba2 = osoba1;
 	        
 	        Console.WriteLine(osoba1.imie); // wyswietli Karol
-	        Console.WriteLine(osoba1.imie); // wyswietli Karol
+	        Console.WriteLine(osoba2.imie); // wyswietli Karol
 	        
 	        osoba1.imie = "Karol";
 	        osoba2.imie = "Arek";
 	        
 	        Console.WriteLine(osoba1.imie); // wyswietli Arek
-	        Console.WriteLine(osoba1.imie); // wyswietli Arek
+	        Console.WriteLine(osoba2.imie); // wyswietli Arek
 	        
 	        Console.ReadKey();
 	    }
